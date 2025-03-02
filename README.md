@@ -10,7 +10,7 @@ To ensure the system can handle high loads efficiently, caching mechanisms will 
 ## Docker Compose Setup
 The project includes a docker-compose.yml file that defines the necessary services for running the application:
 * **PostgreSQL**: Used for persistent data storage. It is configured with the username `postgres_user`, password `123`, and database `postgres_db`.
-* **Redis**: Used for caching, improving the performance of the application. It is secured with the password `123.
+* **Redis**: Used for caching, improving the performance of the application. It is secured with the password `123`.
 
 **To Start Services**
 ```shell
