@@ -51,7 +51,7 @@ and the updated category is then put into the cache with the appropriate key.
 fun create(request: CreateCategoryRequest): CategoryResponse { ... }
 ```
 
-* **Deleting Categories**: When a category is deleted, both the category list cache and the cache for the specific category are evicted.
+* **Deleting Categories**: When a category is deleted, the category list cache, the cache for the specific category and all products are evicted.
 
 ```kotlin
 @Caching(
