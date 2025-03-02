@@ -19,9 +19,7 @@ import java.util.UUID
 class ProductController(private val service: ProductService) {
 
     @GetMapping
-    fun getBy(
-        requestParams: ProductRequestParams
-    ) = service.getBy(requestParams)
+    fun getBy(requestParams: ProductRequestParams) = service.getBy(requestParams)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: UUID) = service.getById(id)
