@@ -8,7 +8,7 @@ However, the system anticipates the creation of a large number of products and e
 To ensure the system can handle high loads efficiently, caching mechanisms will be implemented.
 
 ## Docker Compose Setup
-The project includes a docker-compose.yml file that defines the necessary services for running the application:
+The project includes a `docker/docker-compose.yml` file that defines the necessary services for running the application:
 * **PostgreSQL**: Used for persistent data storage. It is configured with the username `postgres_user`, password `123`, and database `postgres_db`.
 * **Redis**: Used for caching, improving the performance of the application. It is secured with the password `123`.
 
@@ -16,6 +16,9 @@ The project includes a docker-compose.yml file that defines the necessary servic
 ```shell
 docker-compose up
 ```
+
+## Postman Collection
+Postman Collection: [Spring Boot Cache.postman_collection.json](postman/Spring%20Boot%20Cache.postman_collection.json)
 
 ## Caching Strategy
 To optimize the performance of the system, caching is utilized for both products and categories. 
