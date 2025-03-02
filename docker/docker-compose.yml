@@ -1,0 +1,27 @@
+name: spring-boot-cache
+services:
+  postgres:
+    image: postgres:15.4
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=postgres_db
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres_db", "-U", "postgres_user" ]
+      timeout: 5s
+      interval: 2s
+      retries: 3
+  redis:
+    image: redis:7.4.2
+    container_name: redis
+    command: redis-server --requirepass 123 --appendonly yes
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
+      interval: 2s
+      timeout: 3s
+      retries: 2
