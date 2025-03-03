@@ -43,8 +43,8 @@ If the data is not in the cache, it retrieves it from the database and stores it
 fun getById(id: UUID): CategoryResponse { ... }
 ```
 
-* **Creating or Updating Categories**: When a category is created or updated, the cache for the category list is evicted, 
-and the updated category is then put into the cache with the appropriate key.
+* **Creating Categories**: When a category is created, the cache for the category list is evicted, 
+and the created category is put into the cache with the appropriate key.
 
 ```kotlin
 @Caching(
@@ -52,6 +52,20 @@ and the updated category is then put into the cache with the appropriate key.
     put = [CachePut("categories", key = "#result.id")]
 )
 fun create(request: CreateCategoryRequest): CategoryResponse { ... }
+```
+
+* **Updating Categories**: When a category is updated, the cache for the category list and all products are evicted,
+and the updated category is put into the cache with the appropriate key.
+
+```kotlin
+@Caching(
+    evict = [
+        CacheEvict("products", allEntries = true),
+        CacheEvict("categories", key = "'list'")
+    ],
+    put = [CachePut("categories", key = "#id")]
+)
+fun update(id: UUID, request: UpdateCategoryRequest): CategoryResponse { ... }
 ```
 
 * **Deleting Categories**: When a category is deleted, the category list cache, the cache for the specific category and all products are evicted.
@@ -84,8 +98,7 @@ the cache key is composed of the filter parameters (requestParams). This ensures
 fun getBy(requestParams: ProductRequestParams): PagedModel<ProductResponse> { ... }
 ```
 
-* **Creating or Updating Products**: Similar to categories, when a product is created or updated, 
-the product list cache is evicted and the newly created or updated product is added to the cache.
+* **Creating Products**: When a product is created, the product list cache is evicted and the newly created product is put into the cache.
 
 ```kotlin
 @Caching(
@@ -93,6 +106,16 @@ the product list cache is evicted and the newly created or updated product is ad
     put = [CachePut("products", key = "#result.id")]
 )
 fun create(request: CreateProductRequest): ProductResponse { ... }
+```
+
+* **Updating Products**: When a product is updated, the product list cache is evicted and the updated product is put into the cache.
+
+```kotlin
+@Caching(
+    evict = [CacheEvict("products:list", allEntries = true)],
+    put = [CachePut("products", key = "#id")]
+)
+fun update(id: UUID, request: UpdateProductRequest): ProductResponse { ... }
 ```
 
 * **Deleting Products**: When a product is deleted, both the product list cache and the cache for the specific product are evicted.
